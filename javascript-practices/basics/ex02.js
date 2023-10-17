@@ -46,4 +46,4 @@ console.log("==== 객체타입(function) ====");
 // 유사 객체
 console.log("=== 원시 타입도 메소드를 호출할 수 있다. (유사객체) ===");
 console.log(b2.valueOf());
-console.log(b.valueOf()); // == console.log(new Boolean(b).valueOf());
+console.log(b.valueOf()); // = console.log(new Boolean(b).valueOf());
