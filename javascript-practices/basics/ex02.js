@@ -82,11 +82,11 @@ console.log(n + ":" + typeof n);
 console.log("==== 객체타입(function) ====");
 
 function f1(a, b) {
-  return a + b;
+    return a + b;
 }
 
 var f2 = function (a, b) {
-  return a + b;
+    return a + b;
 };
 
 var f3 = new Function("a", "b", "return a+b;");
