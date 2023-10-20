@@ -1,5 +1,5 @@
 /**
- * undefined와 null의 둥치(equals) 비교
+ * undefined와 null의 동치(equals) 비교
  */
 
 var myVar1 = undefined; // 명시적으로 undefined 대입
