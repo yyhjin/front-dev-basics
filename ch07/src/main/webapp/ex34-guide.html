@@ -22,14 +22,32 @@ var changeImage = function() {
 	var index = Math.floor(Math.random() * images.length);
 	var info = images[index].split(":");
 	console.log(info);
+	$("img").attr("src", "/ch07/images/"+info[1]);
 }
 
 $(function(){
-	
-	$("button").click(function(){
+	$("#btn-change").click(function(){
 		changeImage();
 	});
-	
+});
+
+$(function(){
+	var status = false;
+	$("#btn-slideshow").click(function(){
+		status = !status;
+		
+		if(status) {
+			$("#btn-slideshow").text("슬라이드쇼 중지");
+			if(!status) clearInterval(timer);
+		}
+		else {
+			$("#btn-slideshow").text("슬라이드쇼 시작");
+		}
+		var timer = setInterval(function(){
+			if(!status) clearInterval(timer);
+			changeImage();
+		}, 2000);
+	})
 });
 </script>
 </head>
@@ -37,7 +55,7 @@ $(function(){
 	<div class="image-viewer">
 		<div class="buttons">
 			<button id="btn-change">이미지변경</button>
-			<button id="btn-slideshow">슬라이드쇼 시작</button>
+			<button id="btn-slideshow" >슬라이드쇼 시작</button>
 		</div>
 		<div>
 			<img src="/ch07/images/Desert.jpg" alt="사막", title="사막"/>
