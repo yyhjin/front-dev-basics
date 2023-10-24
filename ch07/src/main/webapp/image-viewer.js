@@ -10,5 +10,9 @@ var imageViewer = {
 		"등대:Lighthouse.jpg", 
 		"펭귄:Penguins.jpg", 
 		"툴립:Tulips.jpg"
-	]	
+	]
+	
+	
+	
+	
 }

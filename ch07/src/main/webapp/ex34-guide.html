@@ -31,22 +31,30 @@ $(function(){
 	});
 });
 
+
+
 $(function(){
 	var status = false;
+	var timer = null;
+	
 	$("#btn-slideshow").click(function(){
-		status = !status;
+		if(status) status = false;
+		else status = true;
 		
 		if(status) {
+			timer = function() {
+				setInterval(function(){
+					changeImage();
+				}, 1000);
+			}
 			$("#btn-slideshow").text("슬라이드쇼 중지");
-			if(!status) clearInterval(timer);
 		}
 		else {
+			clearInterval(timer);
+			timer = null;
 			$("#btn-slideshow").text("슬라이드쇼 시작");
 		}
-		var timer = setInterval(function(){
-			if(!status) clearInterval(timer);
-			changeImage();
-		}, 2000);
+		
 	})
 });
 </script>
