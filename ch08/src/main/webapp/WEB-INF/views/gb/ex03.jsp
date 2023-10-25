@@ -12,9 +12,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 
-// 무한 스크롤 처리는 scroll.jsp 참고
-// api url /api/guestbook?sno=0 : sno보다 작은 no의 역순 row를 top-k(limit 0, no)
-
 var render = function(vo, mode) {
 	var html = `
 		<li data-no='\${vo.no}'>
@@ -47,14 +44,39 @@ var fetch = function() {
 }
 
 $(function(){
-	$(window).scroll(function(){
-		if(flag) {
-			// 조건(스크롤바가 바닥에 도착)이 되면 fetch() 호출
-			
+	var dialogDelete = $("#dialog-delete-form").dialog({
+		autoOpen: false,
+		model: true,
+		buttons: {
+			"삭제": function() {
+				var no = $('#hidden-no').val();
+				var password = $('#password-delete').val();
+				
+				console.log("ajax 삭제~", no, password);
+				
+				// 후 처리
+				// 1. response.data(no) 가지고 있는 <li data+no='{no}' > 찾아서
+				// 2. dialogDelete.dialog('close');
+				
+				// 폼의 input value reset;
+				
+			},
+			"취소": function() {
+				$(this).dialog("close");
+			}
+		},
+		close: function() {
+			console.log("다이알로그 close");
+			//$('#password-delete').
 		}
-		
-		flag = true;
-		
+	});
+	
+	// 메세지 삭제 버튼 click 이벤트 처리(Live Event)
+	$(document).on('click', '#list-guestbook li a', function(event) {
+		event.preventDefault();
+		var no = $(this).data('no');
+		$('#hidden-no').val(no);
+		dialogDelete.dialog('open');
 	})
 	
 	// 최초 리스트 가져오기
@@ -73,40 +95,7 @@ $(function(){
 					<textarea id="tx-content" placeholder="내용을 입력해 주세요."></textarea>
 					<input type="submit" value="보내기" />
 				</form>
-				<ul id="list-guestbook">
-
-					<li data-no=''>
-						<strong>지나가다가</strong>
-						<p>
-							별루입니다.<br>
-							비번:1234 -,.-
-						</p>
-						<strong></strong>
-						<a href='' data-no=''>삭제</a> 
-					</li>
-					
-					<li data-no=''>
-						<strong>둘리</strong>
-						<p>
-							안녕하세요<br>
-							홈페이지가 개 굿 입니다.
-						</p>
-						<strong></strong>
-						<a href='' data-no=''>삭제</a> 
-					</li>
-
-					<li data-no=''>
-						<strong>주인</strong>
-						<p>
-							아작스 방명록 입니다.<br>
-							테스트~
-						</p>
-						<strong></strong>
-						<a href='' data-no=''>삭제</a> 
-					</li>
-					
-									
-				</ul>
+				<ul id="list-guestbook"></ul>
 			</div>
 			<div id="dialog-delete-form" title="메세지 삭제" style="display:none">
   				<p class="validateTips normal">작성시 입력했던 비밀번호를 입력하세요.</p>

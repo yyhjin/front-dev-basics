@@ -11,54 +11,19 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/jquery/jquery-3.7.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-
-// 무한 스크롤 처리는 scroll.jsp 참고
-// api url /api/guestbook?sno=0 : sno보다 작은 no의 역순 row를 top-k(limit 0, no)
-
-var render = function(vo, mode) {
-	var html = `
-		<li data-no='\${vo.no}'>
-			<strong>\${vo.name}</strong>
-			<p>\${vo.contents}</p>
-			<strong></strong>
-			<a href='#' data-no='\${vo.no}'>삭제</a> 
-		</li>
-	`;
-	// $("#list-guestbook").prepend(html);
-	$("#list-guestbook")[mode ? 'prepend' : 'append'](html);
-}
-
-var fetch = function() {
-	$.ajax({
-		url: "/ch08/api/guestbook",
-		type: "get",
-		dataType: "json",
-		success: function(response) {
-			if(response.result === "fail") {
-				console.error(response.message);
-				return;
-			}
-			
-			response.data.forEach(function(vo){
-				render(vo, false);
-			})
-		}
-	})
-}
-
 $(function(){
-	$(window).scroll(function(){
-		if(flag) {
-			// 조건(스크롤바가 바닥에 도착)이 되면 fetch() 호출
-			
+	$(window).scroll(function() {
+		var $window = $(this);
+		var $document = $(document);
+		
+		var wh = $window.height();
+		var dh = $document.height();
+		var st = $window.scrollTop();
+		
+		if(dh < wh + st + 10) {
+			console.log("fetch!!!");
 		}
-		
-		flag = true;
-		
-	})
-	
-	// 최초 리스트 가져오기
-	fetch();
+	});
 });
 </script>
 </head>
@@ -95,6 +60,56 @@ $(function(){
 						<a href='' data-no=''>삭제</a> 
 					</li>
 
+					<li data-no=''>
+						<strong>주인</strong>
+						<p>
+							아작스 방명록 입니다.<br>
+							테스트~
+						</p>
+						<strong></strong>
+						<a href='' data-no=''>삭제</a> 
+					</li>
+					
+					<li data-no=''>
+						<strong>주인</strong>
+						<p>
+							아작스 방명록 입니다.<br>
+							테스트~
+						</p>
+						<strong></strong>
+						<a href='' data-no=''>삭제</a> 
+					</li>
+					
+					<li data-no=''>
+						<strong>주인</strong>
+						<p>
+							아작스 방명록 입니다.<br>
+							테스트~
+						</p>
+						<strong></strong>
+						<a href='' data-no=''>삭제</a> 
+					</li>
+					
+					<li data-no=''>
+						<strong>주인</strong>
+						<p>
+							아작스 방명록 입니다.<br>
+							테스트~
+						</p>
+						<strong></strong>
+						<a href='' data-no=''>삭제</a> 
+					</li>
+					
+					<li data-no=''>
+						<strong>주인</strong>
+						<p>
+							아작스 방명록 입니다.<br>
+							테스트~
+						</p>
+						<strong></strong>
+						<a href='' data-no=''>삭제</a> 
+					</li>
+					
 					<li data-no=''>
 						<strong>주인</strong>
 						<p>
